@@ -327,15 +327,25 @@ function toRawCodeUrl(githubUrl, lang) {
 }
 
 function fetchMarkdown(rawUrl, cacheKey) {
+  console.log('[Lesson] Fetching:', rawUrl);
   var cached = localStorage.getItem(cacheKey);
-  if (cached) return Promise.resolve(cached);
-  return fetch(rawUrl).then(function(r) {
-    if (!r.ok) throw new Error('HTTP ' + r.status);
-    return r.text();
-  }).then(function(text) {
-    localStorage.setItem(cacheKey, text);
-    return text;
-  });
+  if (cached) {
+    console.log('[Lesson] Cache hit:', cacheKey);
+    return Promise.resolve(cached);
+  }
+  return fetch(rawUrl, { mode: 'cors', headers: { 'Accept': 'text/markdown, text/plain' } })
+    .then(function(r) {
+      console.log('[Lesson] Response:', r.status, r.statusText, r.url);
+      if (!r.ok) throw new Error('HTTP ' + r.status + ' ' + r.statusText);
+      return r.text();
+    }).then(function(text) {
+      console.log('[Lesson] Got content, length:', text.length);
+      localStorage.setItem(cacheKey, text);
+      return text;
+    }).catch(function(err) {
+      console.error('[Lesson] Fetch error:', err, 'URL:', rawUrl);
+      throw err;
+    });
 }
 
 function setLang(lang) {
@@ -442,8 +452,16 @@ function renderLesson() {
 // Fix PHASES ordering
 PHASES.sort(function(a, b) { return a.id - b.id; });
 
+// Check marked library
+if (typeof marked === 'undefined') {
+  console.error('[Lesson] marked.js not loaded!');
+  document.getElementById('lessonBody').className = 'content-error';
+  document.getElementById('lessonBody').innerHTML = '<p data-en="Markdown library failed to load." data-ko="마크다운 라이브러리 로드 실패.">Markdown library failed to load.</p>';
+}
+
 // Init
 document.getElementById('themeBtn').textContent = '\u260C';
+console.log('[Lesson] Initializing...');
 renderLesson();
 </script>
 </body>
