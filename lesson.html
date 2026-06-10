@@ -280,7 +280,7 @@ h1 .ko { color: var(--muted); font-weight: 400; font-size: 1.1rem; display: bloc
     <div class="controls">
       <button class="btn lang-btn btn-active" data-lang="en" onclick="setLang('en')">EN</button>
       <button class="btn lang-btn" data-lang="ko" onclick="setLang('ko')">KO</button>
-      <button class="btn theme-btn" onclick="toggleTheme()" id="themeBtn">&#9790;</button>
+      <button class="btn theme-btn" onclick="toggleTheme()" id="themeBtn" aria-label="Toggle theme">&#9790;</button>
     </div>
   </div>
 
@@ -362,8 +362,9 @@ function setLang(lang) {
 function toggleTheme() {
   const html = document.documentElement;
   const current = html.getAttribute('data-theme');
-  html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
-  document.getElementById('themeBtn').textContent = current === 'dark' ? '\u260C' : '\u260E';
+  const isDark = current === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('themeBtn').textContent = isDark ? '\u2600' : '\u263D';
 }
 
 function renderLesson() {
@@ -487,7 +488,7 @@ if (typeof marked === 'undefined') {
 }
 
 // Init
-document.getElementById('themeBtn').textContent = '\u260C';
+document.getElementById('themeBtn').textContent = '\u2600';
 console.log('[Lesson] Initializing...');
 renderLesson();
 </script>
