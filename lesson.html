@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=VT323&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <style>
 :root {
   --bg: #fafaf5;
@@ -203,6 +204,73 @@ h1 .ko { color: var(--muted); font-weight: 400; font-size: 1.1rem; display: bloc
 }
 .related-nav a:hover { text-decoration: underline; }
 .related-nav .disabled { color: var(--muted); pointer-events: none; }
+
+.lesson-content {
+  margin-top: 32px;
+  padding: 24px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  line-height: 1.8;
+  font-size: 0.95rem;
+  overflow-wrap: break-word;
+}
+.lesson-content h1 { font-size: 1.4rem; margin: 24px 0 12px; font-weight: 700; }
+.lesson-content h2 { font-size: 1.2rem; margin: 20px 0 10px; font-weight: 600; }
+.lesson-content h3 { font-size: 1.05rem; margin: 16px 0 8px; font-weight: 600; }
+.lesson-content p { margin: 10px 0; }
+.lesson-content ul, .lesson-content ol { margin: 8px 0; padding-left: 24px; }
+.lesson-content li { margin: 4px 0; }
+.lesson-content code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.82rem;
+  background: var(--bg);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+.lesson-content pre {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+.lesson-content pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+.lesson-content blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 16px;
+  margin: 16px 0;
+  color: var(--muted);
+}
+.lesson-content a { color: var(--accent); }
+.lesson-content img { max-width: 100%; border-radius: 8px; margin: 16px 0; }
+.lesson-content table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+.lesson-content th, .lesson-content td {
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  text-align: left;
+}
+.lesson-content th { background: var(--bg); font-weight: 600; }
+.lesson-content hr { border: none; border-top: 1px solid var(--border); margin: 24px 0; }
+
+.content-loading, .content-error {
+  margin-top: 32px;
+  padding: 40px 24px;
+  text-align: center;
+  color: var(--muted);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.content-error { color: #cc4444; }
 </style>
 </head>
 <body>
@@ -238,6 +306,38 @@ function findLesson() {
   return { phase: phase, lesson: phase.lessons[params.l], lessonIndex: params.l, phaseIndex: params.p };
 }
 
+function toRawUrl(githubUrl) {
+  return githubUrl
+    .replace('https://github.com/', 'https://raw.githubusercontent.com/')
+    .replace('/tree/main/', '/main/')
+    + 'docs/en.md';
+}
+
+function toRawCodeUrl(githubUrl, lang) {
+  var ext = 'py';
+  if (lang === 'TypeScript') ext = 'ts';
+  else if (lang === 'Rust') ext = 'rs';
+  else if (lang === 'Julia') ext = 'jl';
+  else if (lang === 'Docker') ext = 'Dockerfile';
+  else if (lang === 'Shell') ext = 'sh';
+  return githubUrl
+    .replace('https://github.com/', 'https://raw.githubusercontent.com/')
+    .replace('/tree/main/', '/main/')
+    + 'code/main.' + ext;
+}
+
+function fetchMarkdown(rawUrl, cacheKey) {
+  var cached = localStorage.getItem(cacheKey);
+  if (cached) return Promise.resolve(cached);
+  return fetch(rawUrl).then(function(r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.text();
+  }).then(function(text) {
+    localStorage.setItem(cacheKey, text);
+    return text;
+  });
+}
+
 function setLang(lang) {
   document.documentElement.setAttribute('data-lang', lang);
   document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.toggle('btn-active', b.getAttribute('data-lang') === lang); });
@@ -262,7 +362,7 @@ function renderLesson() {
   const container = document.getElementById('content');
   
   if (!data) {
-    container.innerHTML = '<div class="not-found"><h2 data-en="Lesson Not Found" data-ko="레슨을 찾을 수 없습니다">Lesson Not Found</h2><p data-en="The lesson you are looking for does not exist." data-ko="찾으시는 레슨이 존재하지 않습니다."></p><a class="back-link" href="index.html" style="display:inline-block;margin-top:20px" data-en="&#8592; Back to Curriculum" data-ko="&#8592; 커리큘럼으로 돌아가기">&#8592; Back to Curriculum</a></div>';
+    container.innerHTML = '<div class="not-found"><h2 data-en="Lesson Not Found" data-ko="\ub808\uc2a8\uc744 \ucc3e\uc744 \uc218 \uc5c6\uc2b5\ub2c8\ub2e4">Lesson Not Found</h2><p data-en="The lesson you are looking for does not exist." data-ko="\ucc3e\uc73c\uc2dc\ub294 \ub808\uc2a8\uc774 \uc874\uc7ac\ud558\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4."></p><a class="back-link" href="index.html" style="display:inline-block;margin-top:20px" data-en="\u2190 Back to Curriculum" data-ko="\u2190 \ucee4\ub9ac\ud074\ub7ec\uc73c\ub85c \ub3cc\uc544\uac00\uae30">\u2190 Back to Curriculum</a></div>';
     return;
   }
 
@@ -297,7 +397,7 @@ function renderLesson() {
   if (le.keywords) {
     var kwList = le.keywords.split(' \u00b7 ');
     var kwSpans = kwList.map(function(kw) { return '<span class="keyword">' + kw + '</span>'; });
-    keywordsHtml = '<div class="keywords"><h3 data-en="Topics" data-ko="주제">Topics</h3><div class="keyword-list">' + kwSpans.join('') + '</div></div>';
+    keywordsHtml = '<div class="keywords"><h3 data-en="Topics" data-ko="\uc8fc\uc81c">Topics</h3><div class="keyword-list">' + kwSpans.join('') + '</div></div>';
   }
 
   container.innerHTML = 
@@ -310,14 +410,36 @@ function renderLesson() {
     '</div>' +
     '<div class="summary">' + summaryText + '</div>' +
     keywordsHtml +
-    '<a class="github-link" href="' + le.url + '" target="_blank" data-en="\u2b73 View Full Lesson on GitHub" data-ko="\u2b73 GitHub에서 전체 레슨 보기">\u2b73 View Full Lesson on GitHub</a>' +
+    '<a class="github-link" href="' + le.url + '" target="_blank" data-en="\u2b73 View on GitHub" data-ko="\u2b73 GitHub\uc5d0\uc11c \ubcf4\uae30">\u2b73 View on GitHub</a>' +
+    '<div id="lessonBody" class="content-loading" data-en="Loading lesson content..." data-ko="\ub808\uc2a8 \ucf58\ud150\uce20 \ub85c\ub529 \uc911...">Loading lesson content...</div>' +
     '<div class="related-nav">' +
-      (hasPrev ? '<a href="' + prevHref + '" data-en="\u2190 Previous" data-ko="\u2190 이전 레슨">\u2190 Previous</a>' : '<span class="disabled" data-en="\u2190 Previous" data-ko="\u2190 이전 레슨">\u2190 Previous</span>') +
-      (hasNext ? '<a href="' + nextHref + '" data-en="Next \u2192" data-ko="다음 레슨 \u2192">Next \u2192</a>' : '<span class="disabled" data-en="Next \u2192" data-ko="다음 레슨 \u2192">Next \u2192</span>') +
+      (hasPrev ? '<a href="' + prevHref + '" data-en="\u2190 Previous" data-ko="\u2190 \uc774\uc804 \ub808\uc2a8">\u2190 Previous</a>' : '<span class="disabled" data-en="\u2190 Previous" data-ko="\u2190 \uc774\uc804 \ub808\uc2a8">\u2190 Previous</span>') +
+      (hasNext ? '<a href="' + nextHref + '" data-en="Next \u2192" data-ko="\ub2e4\uc74c \ub808\uc2a8 \u2192">Next \u2192</a>' : '<span class="disabled" data-en="Next \u2192" data-ko="\ub2e4\uc74c \ub808\uc2a8 \u2192">Next \u2192</span>') +
     '</div>';
+
+  // Fetch and render lesson content from GitHub
+  if (le.url) {
+    var rawUrl = toRawUrl(le.url);
+    var cacheKey = 'lesson_' + pi + '_' + li;
+    fetchMarkdown(rawUrl, cacheKey).then(function(md) {
+      var htmlContent = marked.parse(md);
+      document.getElementById('lessonBody').className = 'lesson-content';
+      document.getElementById('lessonBody').innerHTML = htmlContent;
+      // Apply i18n after content loads
+      var clang = document.documentElement.getAttribute('data-lang') || 'en';
+      document.querySelectorAll('[data-en][data-ko]').forEach(function(el) {
+        if (el.tagName === 'DIV' || el.tagName === 'P' || el.tagName === 'SPAN' || el.tagName === 'A' || el.tagName === 'H2') {
+          el.textContent = el.getAttribute('data-' + clang) || el.textContent;
+        }
+      });
+    }).catch(function(err) {
+      document.getElementById('lessonBody').className = 'content-error';
+      document.getElementById('lessonBody').innerHTML = '<p data-en="Failed to load lesson content from GitHub." data-ko="GitHub\uc5d0\uc11c \ub808\uc2a8 \ucf58\ud150\uce20\ub97c \ubd88\ub7ec\uc624\ub294 \ub370 \uc2e4\ud328\ud588\uc2b5\ub2c8\ub2e4.">Failed to load lesson content from GitHub.</p><p style="margin-top:8px;font-size:0.85rem"><a href="' + rawUrl + '" target="_blank" style="color:var(--accent)">' + rawUrl + '</a></p>';
+    });
+  }
 }
 
-// Fix PHASES ordering if needed (data.js might have them out of order)
+// Fix PHASES ordering
 PHASES.sort(function(a, b) { return a.id - b.id; });
 
 // Init
