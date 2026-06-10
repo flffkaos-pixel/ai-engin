@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson — AI Engineering from Scratch</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23fafaf5'/><rect x='2' y='2' width='28' height='28' fill='none' stroke='%233553ff' stroke-width='1.2'/><text x='6' y='22' font-size='14' font-family='monospace' fill='%233553ff'>AI</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fafaf5;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --accent: #3553ff;
+  --border: #e0e0d8;
+  --card: #ffffff;
+  --tag-build: #3553ff;
+  --tag-learn: #22a67e;
+  --tag-ref: #b08800;
+  --radius: 12px;
+}
+[data-theme="dark"] {
+  --bg: #0d0d12;
+  --text: #e4e4e7;
+  --muted: #888896;
+  --accent: #5588ff;
+  --border: #2a2a35;
+  --card: #15151d;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans KR', 'Source Serif 4', Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.8;
+  transition: background 0.3s, color 0.3s;
+}
+.container { max-width: 800px; margin: 0 auto; padding: 40px 24px; }
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+.back-link {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.back-link:hover { color: var(--accent); }
+.controls { display: flex; gap: 12px; align-items: center; }
+.phase-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 4px;
+}
+h1 .ko { color: var(--muted); font-weight: 400; font-size: 1.1rem; display: block; margin-top: 4px; }
+.summary {
+  font-size: 1.05rem;
+  color: var(--muted);
+  margin: 20px 0;
+  padding: 20px 24px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  line-height: 1.7;
+}
+.meta-grid {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+.meta-item {
+  padding: 12px 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+.meta-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 4px;
+}
+.meta-value {
+  font-weight: 500;
+}
+.tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fff;
+}
+.tag-build { background: var(--tag-build); }
+.tag-learn { background: var(--tag-learn); }
+.tag-ref { background: var(--tag-ref); }
+.lang-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 12px 24px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+.github-link:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.not-found {
+  text-align: center;
+  padding: 80px 0;
+  color: var(--muted);
+}
+.not-found h2 { font-size: 1.3rem; margin-bottom: 12px; }
+.btn {
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  transition: all 0.2s;
+}
+.btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn-active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.lang-btn { min-width: 36px; text-align: center; }
+.theme-btn { font-size: 1.1rem; padding: 6px 10px; line-height: 1; }
+.keywords {
+  margin: 20px 0;
+  padding: 16px 20px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.keywords h3 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+.keyword-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.keyword {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--muted);
+}
+.related-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.related-nav a {
+  color: var(--accent);
+  text-decoration: none;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+}
+.related-nav a:hover { text-decoration: underline; }
+.related-nav .disabled { color: var(--muted); pointer-events: none; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="nav-bar">
+    <a class="back-link" href="index.html" data-en="&#8592; Back to Curriculum" data-ko="&#8592; 커리큘럼으로 돌아가기">&#8592; Back to Curriculum</a>
+    <div class="controls">
+      <button class="btn lang-btn btn-active" data-lang="en" onclick="setLang('en')">EN</button>
+      <button class="btn lang-btn" data-lang="ko" onclick="setLang('ko')">KO</button>
+      <button class="btn theme-btn" onclick="toggleTheme()" id="themeBtn">&#9790;</button>
+    </div>
+  </div>
+
+  <div id="content">
+    <div class="not-found">
+      <h2 data-en="Loading..." data-ko="로딩 중...">Loading...</h2>
+    </div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script>
+function getParams() {
+  const params = new URLSearchParams(window.location.search);
+  return { p: parseInt(params.get('p')), l: parseInt(params.get('l')) };
+}
+
+function findLesson() {
+  const params = getParams();
+  if (isNaN(params.p) || isNaN(params.l)) return null;
+  const phase = PHASES.find(function(ph) { return ph.id === params.p; });
+  if (!phase) return null;
+  return { phase: phase, lesson: phase.lessons[params.l], lessonIndex: params.l, phaseIndex: params.p };
+}
+
+function setLang(lang) {
+  document.documentElement.setAttribute('data-lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.toggle('btn-active', b.getAttribute('data-lang') === lang); });
+  renderLesson();
+  document.querySelectorAll('[data-en][data-ko]').forEach(function(el) {
+    if (el.tagName === 'DIV' || el.tagName === 'P' || el.tagName === 'SPAN' || el.tagName === 'A' || el.tagName === 'H2') {
+      el.textContent = el.getAttribute('data-' + lang) || el.textContent;
+    }
+  });
+}
+
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+  document.getElementById('themeBtn').textContent = current === 'dark' ? '\u260C' : '\u260E';
+}
+
+function renderLesson() {
+  const lang = document.documentElement.getAttribute('data-lang') || 'en';
+  const data = findLesson();
+  const container = document.getElementById('content');
+  
+  if (!data) {
+    container.innerHTML = '<div class="not-found"><h2 data-en="Lesson Not Found" data-ko="레슨을 찾을 수 없습니다">Lesson Not Found</h2><p data-en="The lesson you are looking for does not exist." data-ko="찾으시는 레슨이 존재하지 않습니다."></p><a class="back-link" href="index.html" style="display:inline-block;margin-top:20px" data-en="&#8592; Back to Curriculum" data-ko="&#8592; 커리큘럼으로 돌아가기">&#8592; Back to Curriculum</a></div>';
+    return;
+  }
+
+  var ph = data.phase;
+  var le = data.lesson;
+  var li = data.lessonIndex;
+  var pi = data.phaseIndex;
+  var lname = le.name[lang] || le.name.en;
+  var pname = ph.name[lang] || ph.name.en;
+  var typeClass = 'tag-' + le.type.toLowerCase();
+  var hasPrev = li > 0 || pi > 0;
+  var hasNext = li < ph.lessons.length - 1 || pi < PHASES.length - 1;
+  var prevHref = '#';
+  var nextHref = '#';
+  if (li > 0) {
+    prevHref = 'lesson.html?p=' + pi + '&l=' + (li - 1);
+  } else if (pi > 0) {
+    var prevPhase = PHASES[pi - 1];
+    prevHref = 'lesson.html?p=' + prevPhase.id + '&l=' + (prevPhase.lessons.length - 1);
+  }
+  if (li < ph.lessons.length - 1) {
+    nextHref = 'lesson.html?p=' + pi + '&l=' + (li + 1);
+  } else if (pi < PHASES.length - 1) {
+    var nextPhase = PHASES[pi + 1];
+    nextHref = 'lesson.html?p=' + nextPhase.id + '&l=0';
+  }
+
+  var summaryText = le.summary || '';
+  var statusText = le.status || 'unknown';
+  var langText = le.lang || '\u2014';
+  var keywordsHtml = '';
+  if (le.keywords) {
+    var kwList = le.keywords.split(' \u00b7 ');
+    var kwSpans = kwList.map(function(kw) { return '<span class="keyword">' + kw + '</span>'; });
+    keywordsHtml = '<div class="keywords"><h3 data-en="Topics" data-ko="주제">Topics</h3><div class="keyword-list">' + kwSpans.join('') + '</div></div>';
+  }
+
+  container.innerHTML = 
+    '<div class="phase-badge">' + pname + ' / ' + ph.name.ko + ' \u2014 ' + 'P' + String(pi).padStart(2, '0') + '</div>' +
+    '<h1>' + lname + '<span class="ko">' + le.name.ko + '</span></h1>' +
+    '<div class="meta-grid">' +
+      '<div class="meta-item"><div class="meta-label">Type</div><div class="meta-value"><span class="tag ' + typeClass + '">' + le.type + '</span></div></div>' +
+      '<div class="meta-item"><div class="meta-label">Language</div><div class="meta-value lang-tag">' + langText + '</div></div>' +
+      '<div class="meta-item"><div class="meta-label">Status</div><div class="meta-value"><span class="status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--complete);margin-right:4px"></span>' + statusText + '</div></div>' +
+    '</div>' +
+    '<div class="summary">' + summaryText + '</div>' +
+    keywordsHtml +
+    '<a class="github-link" href="' + le.url + '" target="_blank" data-en="\u2b73 View Full Lesson on GitHub" data-ko="\u2b73 GitHub에서 전체 레슨 보기">\u2b73 View Full Lesson on GitHub</a>' +
+    '<div class="related-nav">' +
+      (hasPrev ? '<a href="' + prevHref + '" data-en="\u2190 Previous" data-ko="\u2190 이전 레슨">\u2190 Previous</a>' : '<span class="disabled" data-en="\u2190 Previous" data-ko="\u2190 이전 레슨">\u2190 Previous</span>') +
+      (hasNext ? '<a href="' + nextHref + '" data-en="Next \u2192" data-ko="다음 레슨 \u2192">Next \u2192</a>' : '<span class="disabled" data-en="Next \u2192" data-ko="다음 레슨 \u2192">Next \u2192</span>') +
+    '</div>';
+}
+
+// Fix PHASES ordering if needed (data.js might have them out of order)
+PHASES.sort(function(a, b) { return a.id - b.id; });
+
+// Init
+document.getElementById('themeBtn').textContent = '\u260C';
+renderLesson();
+</script>
+</body>
+</html>
