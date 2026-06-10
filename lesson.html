@@ -431,20 +431,47 @@ function renderLesson() {
   if (le.url) {
     var rawUrl = toRawUrl(le.url);
     var cacheKey = 'lesson_' + pi + '_' + li;
+    console.log('[Lesson] Starting fetch for:', cacheKey, 'URL:', rawUrl);
     fetchMarkdown(rawUrl, cacheKey).then(function(md) {
-      var htmlContent = marked.parse(md);
-      document.getElementById('lessonBody').className = 'lesson-content';
-      document.getElementById('lessonBody').innerHTML = htmlContent;
-      // Apply i18n after content loads
-      var clang = document.documentElement.getAttribute('data-lang') || 'en';
-      document.querySelectorAll('[data-en][data-ko]').forEach(function(el) {
-        if (el.tagName === 'DIV' || el.tagName === 'P' || el.tagName === 'SPAN' || el.tagName === 'A' || el.tagName === 'H2') {
-          el.textContent = el.getAttribute('data-' + clang) || el.textContent;
+      console.log('[Lesson] Got markdown, length:', md ? md.length : 0);
+      console.log('[Lesson] marked available:', typeof marked !== 'undefined');
+      console.log('[Lesson] lessonBody element:', document.getElementById('lessonBody'));
+      
+      if (typeof marked === 'undefined') {
+        console.error('[Lesson] marked is undefined!');
+        document.getElementById('lessonBody').className = 'content-error';
+        document.getElementById('lessonBody').innerHTML = '<p style="color:#cc4444">Markdown library (marked) not loaded. <a href="' + rawUrl + '" target="_blank">View raw content on GitHub</a></p>';
+        return;
+      }
+      
+      try {
+        var htmlContent = marked.parse(md);
+        console.log('[Lesson] Parsed HTML length:', htmlContent.length);
+        var bodyEl = document.getElementById('lessonBody');
+        if (!bodyEl) {
+          console.error('[Lesson] lessonBody element not found!');
+          return;
         }
-      });
+        bodyEl.className = 'lesson-content';
+        bodyEl.innerHTML = htmlContent;
+        console.log('[Lesson] Content rendered successfully');
+        
+        // Apply i18n after content loads
+        var clang = document.documentElement.getAttribute('data-lang') || 'en';
+        document.querySelectorAll('[data-en][data-ko]').forEach(function(el) {
+          if (el.tagName === 'DIV' || el.tagName === 'P' || el.tagName === 'SPAN' || el.tagName === 'A' || el.tagName === 'H2') {
+            el.textContent = el.getAttribute('data-' + clang) || el.textContent;
+          }
+        });
+      } catch (e) {
+        console.error('[Lesson] Parse/render error:', e);
+        document.getElementById('lessonBody').className = 'content-error';
+        document.getElementById('lessonBody').innerHTML = '<p style="color:#cc4444">Render error: ' + e.message + '. <a href="' + rawUrl + '" target="_blank">View raw content on GitHub</a></p>';
+      }
     }).catch(function(err) {
+      console.error('[Lesson] Fetch promise rejected:', err);
       document.getElementById('lessonBody').className = 'content-error';
-      document.getElementById('lessonBody').innerHTML = '<p data-en="Failed to load lesson content from GitHub." data-ko="GitHub\uc5d0\uc11c \ub808\uc2a8 \ucf58\ud150\uce20\ub97c \ubd88\ub7ec\uc624\ub294 \ub370 \uc2e4\ud328\ud588\uc2b5\ub2c8\ub2e4.">Failed to load lesson content from GitHub.</p><p style="margin-top:8px;font-size:0.85rem"><a href="' + rawUrl + '" target="_blank" style="color:var(--accent)">' + rawUrl + '</a></p>';
+      document.getElementById('lessonBody').innerHTML = '<p style="color:#cc4444">Failed to load: ' + err.message + '. <a href="' + rawUrl + '" target="_blank">View raw content on GitHub</a></p>';
     });
   }
 }
