@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AI Engineering from Scratch</title>
+    <link>https://ai-engineering-beginner.pages.dev/</link>
+    <description>AI Engineering from Scratch - 503 lessons across 20 phases. Every algorithm built from the math up. Bilingual English/Korean.</description>
+    <language>en</language>
+    <lastBuildDate>2026-06-11T00:00:00+00:00</lastBuildDate>
+    <atom:link href="https://ai-engineering-beginner.pages.dev/rss.xml" rel="self" type="application/rss+xml" />
+    <generator>AI Engineering Curriculum</generator>
+    <ttl>1440</ttl>
+    <item>
+      <title>End-to-End Safety Gate</title>
+      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=84</link>
+      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=84</guid>
+      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
+      <description>End-to-End Safety Gate - Phase 19 Lesson 85</description>
+    </item>
+    <item>
+      <title>Constitutional Rules Engine</title>
+      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=83</link>
+      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=83</guid>
+      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
+      <description>Constitutional Rules Engine - Phase 19 Lesson 84</description>
+    </item>
+    <item>
+      <title>Content Classifier Integration</title>
+      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=82</link>
+      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=82</guid>
+      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
+      <description>Content Classifier Integration - Phase 19 Lesson 83</description>
+    </item>
+    <item>
+      <title>Refusal Evaluation</title>
+      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=81</link>
+      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=81</guid>
+      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
+      <description>Refusal Evaluation - Phase 19 Lesson 82</description>
+    </item>
+    <item>
+      <title>Prompt Injection Detector</title>
+      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=80</link>
+      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=80</guid>
+      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
+      <description>Prompt Injection Detector - Phase 19 Lesson 81</description>
+    </item>
+    <item>
+      <title>Jailbreak Taxonomy</title>
+      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=79</link>
+      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=79</guid>
+      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
+      <description>Jailbreak Taxonomy - Phase 19 Lesson 80</description>
+    </item>
+    <item>
+      <title>End-to-End Distributed Training</title>
+      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=78</link>
+      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=78</guid>
+      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
+      <description>End-to-End Distributed Training - Phase 19 Lesson 79</description>
+    </item>
+    <item>
+      <title>Sharded Checkpoint and Atomic Resume</title>
+      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=77</link>
+      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=77</guid>
+      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
+      <description>Sharded Checkpoint and Atomic Resume - Phase 19 Lesson 78</description>
+    </item>
+    <item>
+      <title>Pipeline Parallel and Bubble Analysis</title>
+      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=76</link>
+      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=76</guid>
+      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
+      <description>Pipeline Parallel and Bubble Analysis - Phase 19 Lesson 77</description>
+    </item>
+    <item>
+      <title>ZeRO Optimizer State Sharding</title>
+      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=75</link>
+      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=75</guid>
+      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
+      <description>ZeRO Optimizer State Sharding - Phase 19 Lesson 76</description>
+    </item>
+    <item>
+      <title>Data Parallel DDP From Scratch</title>
+      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=74</link>
+      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=74</guid>
+      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
+      <description>Data Parallel DDP From Scratch - Phase 19 Lesson 75</description>
+    </item>
+    <item>
+      <title>Collective Ops From Scratch</title>
+      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=73</link>
+      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=73</guid>
+      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
+      <description>Collective Ops From Scratch - Phase 19 Lesson 74</description>
+    </item>
+    <item>
+      <title>End-to-End Eval Runner</title>
+      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=72</link>
+      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=72</guid>
+      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
+      <description>End-to-End Eval Runner - Phase 19 Lesson 73</description>
+    </item>
+    <item>
+      <title>Leaderboard Aggregation</title>
+      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=71</link>
+      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=71</guid>
+      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
+      <description>Leaderboard Aggregation - Phase 19 Lesson 72</description>
+    </item>
+    <item>
+      <title>Perplexity and Calibration</title>
+      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=70</link>
+      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=70</guid>
+      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
+      <description>Perplexity and Calibration - Phase 19 Lesson 71</description>
+    </item>
+    <item>
+      <title>Code Exec Metric</title>
+      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=69</link>
+      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=69</guid>
+      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
+      <description>Code Exec Metric - Phase 19 Lesson 70</description>
+    </item>
+    <item>
+      <title>Classical Metrics</title>
+      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=68</link>
+      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=68</guid>
+      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
+      <description>Classical Metrics - Phase 19 Lesson 69</description>
+    </item>
+    <item>
+      <title>Task Spec Format</title>
+      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=67</link>
+      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=67</guid>
+      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
+      <description>Task Spec Format - Phase 19 Lesson 68</description>
+    </item>
+    <item>
+      <title>End-to-End RAG System</title>
+      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=66</link>
+      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=66</guid>
+      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
+      <description>End-to-End RAG System - Phase 19 Lesson 67</description>
+    </item>
+    <item>
+      <title>RAG Evaluation: Precision, Recall, MRR, nDCG, Faithfulness, Answer Relevance</title>
+      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=65</link>
+      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=65</guid>
+      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
+      <description>RAG Evaluation: Precision, Recall, MRR, nDCG, Faithfulness, Answer Relevance - Phase 19 Lesson 66</description>
+    </item>
+  </channel>
+</rss>

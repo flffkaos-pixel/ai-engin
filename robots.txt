@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ai-engineering-beginner.pages.dev/sitemap.xml
+
+# Disallow admin/private paths (if any)
+Disallow: /_next/
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /*.md$
+
+# Crawl-delay for polite crawling
+Crawl-delay: 10
