@@ -342,34 +342,39 @@ function findLesson() {
   return { phase: phase, lesson: phase.lessons[params.l], lessonIndex: params.l, phaseIndex: params.p };
 }
 
-function toRawUrl(githubUrl) {
-  return githubUrl
-    .replace('https://github.com/', 'https://raw.githubusercontent.com/')
-    .replace('/tree/main/', '/main/')
-    + 'docs/en.md';
+function getLocalMdUrl(phaseId, lessonIndex, lang) {
+  return 'md_docs/phases/' + getPhaseSlug(phaseId) + '/' + getLessonSlug(phaseId, lessonIndex) + '/docs/' + lang + '.md';
 }
 
-function toRawCodeUrl(githubUrl, lang) {
-  var ext = 'py';
-  if (lang === 'TypeScript') ext = 'ts';
-  else if (lang === 'Rust') ext = 'rs';
-  else if (lang === 'Julia') ext = 'jl';
-  else if (lang === 'Docker') ext = 'Dockerfile';
-  else if (lang === 'Shell') ext = 'sh';
-  return githubUrl
-    .replace('https://github.com/', 'https://raw.githubusercontent.com/')
-    .replace('/tree/main/', '/main/')
-    + 'code/main.' + ext;
+function getPhaseSlug(phaseId) {
+  const slugs = [
+    '00-setup-and-tooling', '01-math-foundations', '02-ml-fundamentals', '03-deep-learning-core',
+    '04-computer-vision', '05-nlp-foundations-to-advanced', '06-speech-and-audio', '07-transformers-deep-dive',
+    '08-generative-ai', '09-reinforcement-learning', '10-llms-from-scratch', '11-llm-engineering',
+    '12-multimodal-ai', '13-tools-and-protocols', '14-agent-engineering', '15-autonomous-systems',
+    '16-multi-agent-and-swarms', '17-infrastructure-and-production', '18-ethics-safety-alignment', '19-capstone-projects'
+  ];
+  return slugs[phaseId] || 'phase-' + phaseId;
 }
 
-function fetchMarkdown(rawUrl, cacheKey) {
-  console.log('[Lesson] Fetching:', rawUrl);
+function getLessonSlug(phaseId, lessonIndex) {
+  const data = findLesson();
+  if (!data) return 'lesson-' + lessonIndex;
+  const phase = data.phase;
+  if (lessonIndex >= 0 && lessonIndex < phase.lessons.length) {
+    return phase.lessons[lessonIndex].url.split('/').filter(Boolean).pop() || 'lesson-' + lessonIndex;
+  }
+  return 'lesson-' + lessonIndex;
+}
+
+function fetchMarkdown(url, cacheKey) {
+  console.log('[Lesson] Fetching:', url);
   var cached = localStorage.getItem(cacheKey);
   if (cached) {
     console.log('[Lesson] Cache hit:', cacheKey);
     return Promise.resolve(cached);
   }
-  return fetch(rawUrl, { mode: 'cors', headers: { 'Accept': 'text/markdown, text/plain' } })
+  return fetch(url)
     .then(function(r) {
       console.log('[Lesson] Response:', r.status, r.statusText, r.url);
       if (!r.ok) throw new Error('HTTP ' + r.status + ' ' + r.statusText);
@@ -379,7 +384,7 @@ function fetchMarkdown(rawUrl, cacheKey) {
       localStorage.setItem(cacheKey, text);
       return text;
     }).catch(function(err) {
-      console.error('[Lesson] Fetch error:', err, 'URL:', rawUrl);
+      console.error('[Lesson] Fetch error:', err, 'URL:', url);
       throw err;
     });
 }
@@ -464,12 +469,14 @@ function renderLesson() {
       (hasNext ? '<a href="' + nextHref + '" data-en="Next \u2192" data-ko="\ub2e4\uc74c \ub808\uc2a8 \u2192">Next \u2192</a>' : '<span class="disabled" data-en="Next \u2192" data-ko="\ub2e4\uc74c \ub808\uc2a8 \u2192">Next \u2192</span>') +
     '</div>';
 
-  // Fetch and render lesson content from GitHub
+  // Fetch and render lesson content from local md_docs
   if (le.url) {
-    var rawUrl = toRawUrl(le.url);
-    var cacheKey = 'lesson_' + pi + '_' + li;
-    console.log('[Lesson] Starting fetch for:', cacheKey, 'URL:', rawUrl);
-    fetchMarkdown(rawUrl, cacheKey).then(function(md) {
+    var mdLang = document.documentElement.getAttribute('data-lang') || 'en';
+    var mdUrl = getLocalMdUrl(pi, li, mdLang);
+    var cacheKey = 'lesson_' + mdLang + '_' + pi + '_' + li;
+    console.log('[Lesson] Starting fetch for:', cacheKey, 'URL:', mdUrl);
+    
+    fetchMarkdown(mdUrl, cacheKey).then(function(md) {
       console.log('[Lesson] Got markdown, length:', md ? md.length : 0);
       console.log('[Lesson] marked available:', typeof marked !== 'undefined');
       console.log('[Lesson] lessonBody element:', document.getElementById('lessonBody'));
@@ -477,7 +484,7 @@ function renderLesson() {
       if (typeof marked === 'undefined') {
         console.error('[Lesson] marked is undefined!');
         document.getElementById('lessonBody').className = 'content-error';
-        document.getElementById('lessonBody').innerHTML = '<p style="color:#cc4444">Markdown library (marked) not loaded. <a href="' + rawUrl + '" target="_blank">View raw content on GitHub</a></p>';
+        document.getElementById('lessonBody').innerHTML = '<p style="color:#cc4444">Markdown library (marked) not loaded.</p>';
         return;
       }
       
@@ -491,24 +498,37 @@ function renderLesson() {
         }
         bodyEl.className = 'lesson-content';
         bodyEl.innerHTML = htmlContent;
-        console.log('[Lesson] Content rendered successfully');
-        
-        // Apply i18n after content loads
-        var clang = document.documentElement.getAttribute('data-lang') || 'en';
-        document.querySelectorAll('[data-en][data-ko]').forEach(function(el) {
-          if (el.tagName === 'DIV' || el.tagName === 'P' || el.tagName === 'SPAN' || el.tagName === 'A' || el.tagName === 'H2') {
-            el.textContent = el.getAttribute('data-' + clang) || el.textContent;
-          }
-        });
+        console.log('[Lesson] Content rendered successfully from local md_docs (' + mdLang + ')');
       } catch (e) {
         console.error('[Lesson] Parse/render error:', e);
         document.getElementById('lessonBody').className = 'content-error';
-        document.getElementById('lessonBody').innerHTML = '<p style="color:#cc4444">Render error: ' + e.message + '. <a href="' + rawUrl + '" target="_blank">View raw content on GitHub</a></p>';
+        document.getElementById('lessonBody').innerHTML = '<p style="color:#cc4444">Render error: ' + e.message + '.</p>';
       }
     }).catch(function(err) {
       console.error('[Lesson] Fetch promise rejected:', err);
-      document.getElementById('lessonBody').className = 'content-error';
-      document.getElementById('lessonBody').innerHTML = '<p style="color:#cc4444">Failed to load: ' + err.message + '. <a href="' + rawUrl + '" target="_blank">View raw content on GitHub</a></p>';
+      // Try English fallback if Korean fails
+      if (mdLang === 'ko') {
+        var enUrl = getLocalMdUrl(pi, li, 'en');
+        var enCacheKey = 'lesson_en_' + pi + '_' + li;
+        console.log('[Lesson] Trying English fallback:', enUrl);
+        fetchMarkdown(enUrl, enCacheKey).then(function(enMd) {
+          try {
+            var enHtml = marked.parse(enMd);
+            document.getElementById('lessonBody').className = 'lesson-content';
+            document.getElementById('lessonBody').innerHTML = enHtml;
+            console.log('[Lesson] Content rendered from English fallback');
+          } catch(e) {
+            document.getElementById('lessonBody').className = 'content-error';
+            document.getElementById('lessonBody').innerHTML = '<p style="color:#cc4444">Failed to load content (' + err.message + '). <a href="' + le.url + '" target="_blank">View on GitHub</a></p>';
+          }
+        }).catch(function() {
+          document.getElementById('lessonBody').className = 'content-error';
+          document.getElementById('lessonBody').innerHTML = '<p style="color:#cc4444">Failed to load content (' + err.message + '). <a href="' + le.url + '" target="_blank">View on GitHub</a></p>';
+        });
+      } else {
+        document.getElementById('lessonBody').className = 'content-error';
+        document.getElementById('lessonBody').innerHTML = '<p style="color:#cc4444">Failed to load content (' + err.message + '). <a href="' + le.url + '" target="_blank">View on GitHub</a></p>';
+      }
     });
   }
 }
