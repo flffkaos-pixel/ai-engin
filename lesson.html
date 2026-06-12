@@ -456,14 +456,14 @@ function renderLesson() {
     '<div class="phase-badge">' + pname + ' / ' + ph.name.ko + ' \u2014 ' + 'P' + String(pi).padStart(2, '0') + '</div>' +
     '<h1>' + lname + '<span class="ko">' + le.name.ko + '</span></h1>' +
     '<div class="meta-grid">' +
-      '<div class="meta-item"><div class="meta-label">Type</div><div class="meta-value"><span class="tag ' + typeClass + '">' + le.type + '</span></div></div>' +
-      '<div class="meta-item"><div class="meta-label">Language</div><div class="meta-value lang-tag">' + langText + '</div></div>' +
-      '<div class="meta-item"><div class="meta-label">Status</div><div class="meta-value"><span class="status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--complete);margin-right:4px"></span>' + statusText + '</div></div>' +
+      '<div class="meta-item"><div class="meta-label" data-en="Type" data-ko="유형">Type</div><div class="meta-value"><span class="tag ' + typeClass + '">' + le.type + '</span></div></div>' +
+      '<div class="meta-item"><div class="meta-label" data-en="Language" data-ko="언어">Language</div><div class="meta-value lang-tag">' + langText + '</div></div>' +
+      '<div class="meta-item"><div class="meta-label" data-en="Status" data-ko="상태">Status</div><div class="meta-value"><span class="status-dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--complete);margin-right:4px"></span>' + statusText + '</div></div>' +
     '</div>' +
     '<div class="summary">' + summaryText + '</div>' +
     keywordsHtml +
     '<a class="github-link" href="' + le.url + '" target="_blank" data-en="\u2b73 View on GitHub" data-ko="\u2b73 GitHub\uc5d0\uc11c \ubcf4\uae30">\u2b73 View on GitHub</a>' +
-    '<div id="lessonBody" class="content-loading">Loading lesson content...</div>' +
+    '<div id="lessonBody" class="content-loading" data-en="Loading lesson content..." data-ko="레슨 내용을 불러오는 중...">Loading lesson content...</div>' +
     '<div class="related-nav">' +
       (hasPrev ? '<a href="' + prevHref + '" data-en="\u2190 Previous" data-ko="\u2190 \uc774\uc804 \ub808\uc2a8">\u2190 Previous</a>' : '<span class="disabled" data-en="\u2190 Previous" data-ko="\u2190 \uc774\uc804 \ub808\uc2a8">\u2190 Previous</span>') +
       (hasNext ? '<a href="' + nextHref + '" data-en="Next \u2192" data-ko="\ub2e4\uc74c \ub808\uc2a8 \u2192">Next \u2192</a>' : '<span class="disabled" data-en="Next \u2192" data-ko="\ub2e4\uc74c \ub808\uc2a8 \u2192">Next \u2192</span>') +
@@ -484,7 +484,14 @@ function renderLesson() {
       if (typeof marked === 'undefined') {
         console.error('[Lesson] marked is undefined!');
         document.getElementById('lessonBody').className = 'content-error';
-        document.getElementById('lessonBody').innerHTML = '<p style="color:#cc4444">Markdown library (marked) not loaded.</p>';
+        document.getElementById('lessonBody').innerHTML = '<p data-en="Markdown library (marked) not loaded. Please refresh the page." data-ko="마크다운 라이브러리 로드에 실패했습니다. 페이지를 새로고침 해주세요.">Markdown library (marked) not loaded. Please refresh the page.</p>';
+        return;
+      }
+      
+      if (!md || md.length < 10) {
+        console.error('[Lesson] Markdown content is empty or too short');
+        document.getElementById('lessonBody').className = 'content-error';
+        document.getElementById('lessonBody').innerHTML = '<p data-en="Lesson content is empty. <a href=\'' + le.url + '\' target=\'_blank\'>View on GitHub</a>" data-ko="레슨 내용이 비어있습니다. <a href=\'' + le.url + '\' target=\'_blank\'>GitHub에서 보기</a>">Lesson content is empty. <a href="' + le.url + '" target="_blank">View on GitHub</a></p>';
         return;
       }
       
@@ -499,19 +506,27 @@ function renderLesson() {
         bodyEl.className = 'lesson-content';
         bodyEl.innerHTML = htmlContent;
         console.log('[Lesson] Content rendered successfully from local md_docs (' + mdLang + ')');
+        
+        if (lang !== mdLang) {
+          lang = mdLang;
+        }
       } catch (e) {
         console.error('[Lesson] Parse/render error:', e);
         document.getElementById('lessonBody').className = 'content-error';
-        document.getElementById('lessonBody').innerHTML = '<p style="color:#cc4444">Render error: ' + e.message + '.</p>';
+        document.getElementById('lessonBody').innerHTML = '<p data-en="Render error: ' + e.message + '. <a href=\'' + le.url + '\' target=\'_blank\'>View on GitHub</a>" data-ko="렌더링 오류: ' + e.message + '. <a href=\'' + le.url + '\' target=\'_blank\'>GitHub에서 보기</a>">Render error: ' + e.message + '. <a href="' + le.url + '" target="_blank">View on GitHub</a></p>';
       }
     }).catch(function(err) {
       console.error('[Lesson] Fetch promise rejected:', err);
-      // Try English fallback if Korean fails
       if (mdLang === 'ko') {
         var enUrl = getLocalMdUrl(pi, li, 'en');
         var enCacheKey = 'lesson_en_' + pi + '_' + li;
         console.log('[Lesson] Trying English fallback:', enUrl);
         fetchMarkdown(enUrl, enCacheKey).then(function(enMd) {
+          if (!enMd || enMd.length < 10) {
+            document.getElementById('lessonBody').className = 'content-error';
+            document.getElementById('lessonBody').innerHTML = '<p data-en="Failed to load lesson content. <a href=\'' + le.url + '\' target=\'_blank\'>View on GitHub</a>" data-ko="레슨 내용을 불러오지 못했습니다. <a href=\'' + le.url + '\' target=\'_blank\'>GitHub에서 보기</a>">Failed to load lesson content. <a href="' + le.url + '" target="_blank">View on GitHub</a></p>';
+            return;
+          }
           try {
             var enHtml = marked.parse(enMd);
             document.getElementById('lessonBody').className = 'lesson-content';
@@ -519,15 +534,15 @@ function renderLesson() {
             console.log('[Lesson] Content rendered from English fallback');
           } catch(e) {
             document.getElementById('lessonBody').className = 'content-error';
-            document.getElementById('lessonBody').innerHTML = '<p style="color:#cc4444">Failed to load content (' + err.message + '). <a href="' + le.url + '" target="_blank">View on GitHub</a></p>';
+            document.getElementById('lessonBody').innerHTML = '<p data-en="Failed to load content. <a href=\'' + le.url + '\' target=\'_blank\'>View on GitHub</a>" data-ko="내용을 불러오지 못했습니다. <a href=\'' + le.url + '\' target=\'_blank\'>GitHub에서 보기</a>">Failed to load content. <a href="' + le.url + '" target="_blank">View on GitHub</a></p>';
           }
         }).catch(function() {
           document.getElementById('lessonBody').className = 'content-error';
-          document.getElementById('lessonBody').innerHTML = '<p style="color:#cc4444">Failed to load content (' + err.message + '). <a href="' + le.url + '" target="_blank">View on GitHub</a></p>';
+          document.getElementById('lessonBody').innerHTML = '<p data-en="Failed to load lesson content. <a href=\'' + le.url + '\' target=\'_blank\'>View on GitHub</a>" data-ko="레슨 내용을 불러오지 못했습니다. <a href=\'' + le.url + '\' target=\'_blank\'>GitHub에서 보기</a>">Failed to load lesson content. <a href="' + le.url + '" target="_blank">View on GitHub</a></p>';
         });
       } else {
         document.getElementById('lessonBody').className = 'content-error';
-        document.getElementById('lessonBody').innerHTML = '<p style="color:#cc4444">Failed to load content (' + err.message + '). <a href="' + le.url + '" target="_blank">View on GitHub</a></p>';
+        document.getElementById('lessonBody').innerHTML = '<p data-en="Failed to load lesson content (' + err.message + '). <a href=\'' + le.url + '\' target=\'_blank\'>View on GitHub</a>" data-ko="레슨 내용을 불러오지 못했습니다 (' + err.message + '). <a href=\'' + le.url + '\' target=\'_blank\'>GitHub에서 보기</a>">Failed to load lesson content (' + err.message + '). <a href="' + le.url + '" target="_blank">View on GitHub</a></p>';
       }
     });
   }
