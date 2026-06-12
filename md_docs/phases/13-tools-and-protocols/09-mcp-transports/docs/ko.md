@@ -1,0 +1,1 @@
+# MCP 전송. stdio, SSE, 스트리밍 HTTP.

@@ -1,0 +1,1 @@
+# Embodied AI — VLA, OpenVLA, π0, GR00T. 로봇 행동 모델.

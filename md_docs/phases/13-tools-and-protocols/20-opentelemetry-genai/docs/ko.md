@@ -1,0 +1,1 @@
+OpenTelemetry GenAI — LLM 관측

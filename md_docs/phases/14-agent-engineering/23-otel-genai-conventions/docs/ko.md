@@ -1,0 +1,1 @@
+OTel GenAI 규약
