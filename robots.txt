@@ -1,9 +1,15 @@
+# robots.txt for AI Engineering from Scratch
+# https://ai-engineering-beginner.pages.dev/
+
+# All crawlers allowed
 User-agent: *
 Allow: /
 
+# Sitemap
 Sitemap: https://ai-engineering-beginner.pages.dev/sitemap.xml
+Sitemap: https://ai-engineering-beginner.pages.dev/rss.xml
 
-# Disallow admin/private paths (if any)
+# Admin/internal paths
 Disallow: /_next/
 Disallow: /api/
 Disallow: /admin/
@@ -11,5 +17,58 @@ Disallow: /private/
 Disallow: /*.json$
 Disallow: /*.md$
 
-# Crawl-delay for polite crawling
+# Crawl-delay
 Crawl-delay: 10
+
+# ============================================
+# AI Crawler Policies (GEO Strategy)
+# ============================================
+
+# OpenAI - ChatGPT
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic - Claude
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+# Common Crawl
+User-agent: CCBot
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+# Google - Gemini (ENABLED for AI search visibility)
+User-agent: Google-Extended
+Allow: /
+
+# Apple
+User-agent: Applebot-Extended
+Allow: /
+
+# Other AI crawlers
+User-agent: Bytespider
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Diffbot
+Allow: /

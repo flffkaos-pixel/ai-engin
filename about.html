@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About / 소개 — AI Engineering from Scratch</title>
+<meta name="description" content="Learn about AI Engineering from Scratch — a 503-lesson bilingual curriculum teaching AI engineering from the math up.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://ai-engineering-beginner.pages.dev/about.html">
+<link rel="alternate" hreflang="en" href="https://ai-engineering-beginner.pages.dev/about.html">
+<link rel="alternate" hreflang="ko" href="https://ai-engineering-beginner.pages.dev/about.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..700;1,8..60,400..700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<meta property="og:title" content="About AI Engineering from Scratch">
+<meta property="og:description" content="503 lessons across 20 phases. Every algorithm built from the math up. Bilingual English/Korean.">
+<meta property="og:type" content="website">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "About AI Engineering from Scratch",
+  "description": "A comprehensive 503-lesson curriculum teaching AI engineering from foundational math through production AI systems",
+  "url": "https://ai-engineering-beginner.pages.dev/about.html",
+  "inLanguage": ["en", "ko"],
+  "isPartOf": {"@type": "WebSite", "name": "AI Engineering from Scratch", "url": "https://ai-engineering-beginner.pages.dev/"}
+}
+</script>
+<style>
+:root{--bg:#fafaf5;--text:#1a1a1a;--muted:#6b6b6b;--accent:#3553ff;--accent-hover:#2a42cc;--border:#e0e0d8;--card:#ffffff}
+[data-theme="dark"]{--bg:#0d0d12;--text:#e4e4e7;--muted:#888896;--accent:#5588ff;--border:#2a2a35;--card:#15151d}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans KR','Source Serif 4',Georgia,serif;background:var(--bg);color:var(--text);line-height:1.8;transition:background .3s,color .3s}
+.container{max-width:800px;margin:0 auto;padding:60px 24px}
+h1{font-size:2rem;font-weight:700;margin-bottom:8px;font-family:'JetBrains Mono',monospace;color:var(--accent)}
+h2{font-size:1.4rem;font-weight:600;margin:32px 0 12px;color:var(--accent)}
+p{margin-bottom:16px;max-width:680px}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+ul{margin:0 0 16px 24px;max-width:680px}
+.phase-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px;margin:24px 0}
+.phase-item{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;font-family:'JetBrains Mono',monospace;font-size:.85rem;color:var(--text);transition:border-color .2s}
+.phase-item:hover{border-color:var(--accent)}
+.phase-item .num{color:var(--accent);font-weight:700}
+.lang-toggle{position:fixed;top:20px;right:20px;display:flex;gap:8px;z-index:100}
+.lang-btn{background:var(--card);border:1px solid var(--border);color:var(--text);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:.85rem;font-family:'JetBrains Mono',monospace;transition:all .2s}
+.lang-btn:hover,.lang-btn.btn-active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.theme-btn{background:var(--card);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:8px;cursor:pointer;font-size:1rem;transition:all .2s}
+.theme-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.back-link{display:inline-flex;align-items:center;gap:6px;margin-bottom:24px;color:var(--muted);font-size:.9rem;text-decoration:none;font-family:'JetBrains Mono',monospace}
+.back-link:hover{color:var(--accent);text-decoration:none}
+.ko{display:none}[data-lang="ko"] .ko{display:inline}
+.en.ko-hide{display:inline}[data-lang="ko"] .en.ko-hide{display:none}[data-lang="ko"] .ko{display:inline}
+.highlight-box{background:var(--card);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;padding:20px 24px;margin:24px 0}
+.highlight-box p{margin-bottom:0}
+</style>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1955893232253258" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="lang-toggle">
+<button class="lang-btn btn-active" data-lang="en" onclick="setLang('en')">EN</button>
+<button class="lang-btn" data-lang="ko" onclick="setLang('ko')">KO</button>
+<button class="theme-btn" id="themeBtn" onclick="toggleTheme()">&#9790;</button>
+</div>
+<div class="container">
+<a class="back-link" href="index.html">&#8592; <span data-en="Back to Curriculum" data-ko="커리큘럼으로">Back to Curriculum</span></a>
+<h1>About / <span class="ko">소개</span></h1>
+
+<div class="highlight-box">
+<p data-en="AI Engineering from Scratch is a comprehensive curriculum with 503 hands-on lessons across 20 phases. Every algorithm is built from the math up before using any framework." data-ko="AI Engineering from Scratch는 20개 Phase에 걸쳐 503개의 실습 레슨으로 구성된 종합 커리큘럼입니다. 모든 알고리즘은 프레임워크 사용 전에 수학부터 차근차근 구축합니다."></p>
+</div>
+
+<h2 data-en="Why 'From Scratch'?" data-ko="' Grundlagen부터'의 이유">Why "From Scratch"?</h2>
+<p data-en="Most AI courses start with frameworks. You import PyTorch, call some functions, and magic happens. But when it breaks — and it will — you have no idea why." data-ko="대부분의 AI 강의는 프레임워크부터 시작합니다. PyTorch를 임포트하고 함수를 호출하면 마법처럼 작동합니다. 하지만 문제가 생길 때 — 그리고 반드시 생깁니다 — 왜 그런지 알 수 없습니다."></p>
+<p data-en="This curriculum builds everything from raw math first. Backprop from scratch. Tokenizer from scratch. Attention mechanism from scratch. Then — and only then — does it show how the same operation works in a production library." data-ko="본 커리큘럼은 모든 것을 먼저 수학부터 차근차근 구축합니다. 역전파를 처음부터. 토크나이저를 처음부터. 어텐션 메커니즘을 처음부터. 그리고 — 그 다음에만 — 동일한 작업이 프로덕션 라이브러리에서 어떻게 작동하는지 보여줍니다."></p>
+
+<h2 data-en="20 Phases">20개 Phase</h2>
+<p data-en="The curriculum progresses through 20 carefully designed phases:" data-ko="커리큘럼은 20개의 신중하게 설계된 Phase를 통해 진행됩니다:"></p>
+<div class="phase-grid">
+<div class="phase-item"><span class="num">P00</span> Setup & Tooling</div>
+<div class="phase-item"><span class="num">P01</span> Math Foundations</div>
+<div class="phase-item"><span class="num">P02</span> ML Fundamentals</div>
+<div class="phase-item"><span class="num">P03</span> Deep Learning Core</div>
+<div class="phase-item"><span class="num">P04</span> Computer Vision</div>
+<div class="phase-item"><span class="num">P05</span> NLP Foundations</div>
+<div class="phase-item"><span class="num">P06</span> Speech & Audio</div>
+<div class="phase-item"><span class="num">P07</span> Transformers</div>
+<div class="phase-item"><span class="num">P08</span> Generative AI</div>
+<div class="phase-item"><span class="num">P09</span> Reinforcement Learning</div>
+<div class="phase-item"><span class="num">P10</span> LLMs from Scratch</div>
+<div class="phase-item"><span class="num">P11</span> LLM Engineering</div>
+<div class="phase-item"><span class="num">P12</span> Multimodal AI</div>
+<div class="phase-item"><span class="num">P13</span> Tools & Protocols</div>
+<div class="phase-item"><span class="num">P14</span> Agent Engineering</div>
+<div class="phase-item"><span class="num">P15</span> Autonomous Systems</div>
+<div class="phase-item"><span class="num">P16</span> Multi-Agent Swarms</div>
+<div class="phase-item"><span class="num">P17</span> Infrastructure</div>
+<div class="phase-item"><span class="num">P18</span> Ethics & Safety</div>
+<div class="phase-item"><span class="num">P19</span> Capstone Projects</div>
+</div>
+
+<h2 data-en="Bilingual Curriculum" data-ko="이중언어 커리큘럼">Bilingual Curriculum</h2>
+<p data-en="Every lesson is available in both English and Korean. Use the EN/KO toggle in the top-right corner to switch languages. The entire UI and all lesson content is fully translated." data-ko="모든 레슨은 영어와 한국어로 제공됩니다. 오른쪽 상단의 EN/KO 토글을 사용하여 언어를 전환하세요. 전체 UI와 모든 레슨 콘텐츠가 완전히 번역되어 있습니다."></p>
+
+<h2 data-en="Open Source" data-ko="오픈소스">Open Source</h2>
+<p data-en="The curriculum is open source and available on GitHub. Each lesson includes working code, tests, and a reusable artifact you can use in your own projects." data-ko="커리큘럼은 오픈소스이며 GitHub에서 사용할 수 있습니다. 각 레슨에는 작동하는 코드, 테스트 및 자체 프로젝트에서 사용할 수 있는 재사용 가능한 아티팩트가 포함되어 있습니다."></p>
+
+<h2 data-en="Free Forever" data-ko="영구 무료">Free Forever</h2>
+<p data-en="This curriculum is and will always be free. No signup required. No paywall. No tracking." data-ko="본 커리큘럼은 앞으로도 영구적으로 무료입니다. 가입 불필요. 결제벽 없음. 트래킹 없음."></p>
+
+<h2 data-en="Contact" data-ko="연락처">Contact</h2>
+<p data-en="Questions, feedback, and contributions are welcome on the GitHub repository." data-ko="질문, 피드백 및 기고는 GitHub 저장소에서 환영합니다."></p>
+</div>
+<script>
+function setLang(lang){document.documentElement.setAttribute('data-lang',lang);document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.toggle('btn-active',b.getAttribute('data-lang')===lang)});document.querySelectorAll('[data-en][data-ko]').forEach(function(el){if(el.tagName==='SPAN'||el.tagName==='P'||el.tagName==='A'||el.tagName==='H2'){el.textContent=el.getAttribute('data-'+lang)||el.textContent}});localStorage.setItem('aieng_lang',lang)}
+function toggleTheme(){var html=document.documentElement;var current=html.getAttribute('data-theme');var isDark=current==='dark';html.setAttribute('data-theme',isDark?'light':'dark');document.getElementById('themeBtn').textContent=isDark?'☀':'☾';localStorage.setItem('aieng_theme',isDark?'light':'dark')}
+var storedLang=localStorage.getItem('aieng_lang')||'en';var storedTheme=localStorage.getItem('aieng_theme')||'light';document.documentElement.setAttribute('data-lang',storedLang);document.documentElement.setAttribute('data-theme',storedTheme);document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.toggle('btn-active',b.getAttribute('data-lang')===storedLang)});document.getElementById('themeBtn').textContent=storedTheme==='dark'?'☀':'☾';
+</script>
+</body>
+</html>
