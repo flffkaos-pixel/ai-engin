@@ -327,23 +327,34 @@ function setLang(lang) {
   document.documentElement.setAttribute('data-lang', lang);
   document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.toggle('btn-active', b.getAttribute('data-lang') === lang); });
   render();
-  // Update data-en/data-ko elements
   document.querySelectorAll('[data-en][data-ko]').forEach(function(el) {
     if (el.tagName === 'DIV' || el.tagName === 'P' || el.tagName === 'SPAN' || el.tagName === 'H2') {
       el.textContent = el.getAttribute('data-' + lang) || el.textContent;
     }
   });
+  localStorage.setItem('aieng_lang', lang);
 }
 
 function toggleTheme() {
   const html = document.documentElement;
   const current = html.getAttribute('data-theme');
-  html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
-  document.getElementById('themeBtn').textContent = current === 'dark' ? '\u260C' : '\u260E';
+  const isDark = current === 'dark';
+  html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  document.getElementById('themeBtn').textContent = isDark ? '\u260C' : '\u263D';
+  localStorage.setItem('aieng_theme', isDark ? 'light' : 'dark');
+}
+
+function applyStoredSettings() {
+  const storedLang = localStorage.getItem('aieng_lang') || 'en';
+  const storedTheme = localStorage.getItem('aieng_theme') || 'light';
+  document.documentElement.setAttribute('data-lang', storedLang);
+  document.documentElement.setAttribute('data-theme', storedTheme);
+  document.querySelectorAll('.lang-btn').forEach(function(b) { b.classList.toggle('btn-active', b.getAttribute('data-lang') === storedLang); });
+  document.getElementById('themeBtn').textContent = storedTheme === 'dark' ? '\u260C' : '\u263D';
 }
 
 // Init
-document.getElementById('themeBtn').textContent = '\u260C';
+applyStoredSettings();
 render();
 
 // Disable right-click
