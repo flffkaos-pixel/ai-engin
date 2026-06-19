@@ -1,153 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0">
   <channel>
-    <title>AI Engineering from Scratch</title>
-    <link>https://ai-engineering-beginner.pages.dev/</link>
-    <description>AI Engineering from Scratch - 503 lessons across 20 phases. Every algorithm built from the math up. Bilingual English/Korean.</description>
+    <title>ai-engin</title>
+    <link>https://ai-engineering-beginner.pages.dev</link>
+    <description>ai-engin updates</description>
     <language>en</language>
-    <lastBuildDate>2026-06-11T00:00:00+00:00</lastBuildDate>
-    <atom:link href="https://ai-engineering-beginner.pages.dev/rss.xml" rel="self" type="application/rss+xml" />
-    <generator>AI Engineering Curriculum</generator>
-    <ttl>1440</ttl>
-    <item>
-      <title>End-to-End Safety Gate</title>
-      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=84</link>
-      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=84</guid>
-      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
-      <description>End-to-End Safety Gate - Phase 19 Lesson 85</description>
-    </item>
-    <item>
-      <title>Constitutional Rules Engine</title>
-      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=83</link>
-      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=83</guid>
-      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
-      <description>Constitutional Rules Engine - Phase 19 Lesson 84</description>
-    </item>
-    <item>
-      <title>Content Classifier Integration</title>
-      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=82</link>
-      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=82</guid>
-      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
-      <description>Content Classifier Integration - Phase 19 Lesson 83</description>
-    </item>
-    <item>
-      <title>Refusal Evaluation</title>
-      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=81</link>
-      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=81</guid>
-      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
-      <description>Refusal Evaluation - Phase 19 Lesson 82</description>
-    </item>
-    <item>
-      <title>Prompt Injection Detector</title>
-      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=80</link>
-      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=80</guid>
-      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
-      <description>Prompt Injection Detector - Phase 19 Lesson 81</description>
-    </item>
-    <item>
-      <title>Jailbreak Taxonomy</title>
-      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=79</link>
-      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=79</guid>
-      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
-      <description>Jailbreak Taxonomy - Phase 19 Lesson 80</description>
-    </item>
-    <item>
-      <title>End-to-End Distributed Training</title>
-      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=78</link>
-      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=78</guid>
-      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
-      <description>End-to-End Distributed Training - Phase 19 Lesson 79</description>
-    </item>
-    <item>
-      <title>Sharded Checkpoint and Atomic Resume</title>
-      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=77</link>
-      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=77</guid>
-      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
-      <description>Sharded Checkpoint and Atomic Resume - Phase 19 Lesson 78</description>
-    </item>
-    <item>
-      <title>Pipeline Parallel and Bubble Analysis</title>
-      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=76</link>
-      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=76</guid>
-      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
-      <description>Pipeline Parallel and Bubble Analysis - Phase 19 Lesson 77</description>
-    </item>
-    <item>
-      <title>ZeRO Optimizer State Sharding</title>
-      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=75</link>
-      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=75</guid>
-      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
-      <description>ZeRO Optimizer State Sharding - Phase 19 Lesson 76</description>
-    </item>
-    <item>
-      <title>Data Parallel DDP From Scratch</title>
-      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=74</link>
-      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=74</guid>
-      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
-      <description>Data Parallel DDP From Scratch - Phase 19 Lesson 75</description>
-    </item>
-    <item>
-      <title>Collective Ops From Scratch</title>
-      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=73</link>
-      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=73</guid>
-      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
-      <description>Collective Ops From Scratch - Phase 19 Lesson 74</description>
-    </item>
-    <item>
-      <title>End-to-End Eval Runner</title>
-      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=72</link>
-      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=72</guid>
-      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
-      <description>End-to-End Eval Runner - Phase 19 Lesson 73</description>
-    </item>
-    <item>
-      <title>Leaderboard Aggregation</title>
-      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=71</link>
-      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=71</guid>
-      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
-      <description>Leaderboard Aggregation - Phase 19 Lesson 72</description>
-    </item>
-    <item>
-      <title>Perplexity and Calibration</title>
-      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=70</link>
-      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=70</guid>
-      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
-      <description>Perplexity and Calibration - Phase 19 Lesson 71</description>
-    </item>
-    <item>
-      <title>Code Exec Metric</title>
-      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=69</link>
-      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=69</guid>
-      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
-      <description>Code Exec Metric - Phase 19 Lesson 70</description>
-    </item>
-    <item>
-      <title>Classical Metrics</title>
-      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=68</link>
-      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=68</guid>
-      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
-      <description>Classical Metrics - Phase 19 Lesson 69</description>
-    </item>
-    <item>
-      <title>Task Spec Format</title>
-      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=67</link>
-      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=67</guid>
-      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
-      <description>Task Spec Format - Phase 19 Lesson 68</description>
-    </item>
-    <item>
-      <title>End-to-End RAG System</title>
-      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=66</link>
-      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=66</guid>
-      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
-      <description>End-to-End RAG System - Phase 19 Lesson 67</description>
-    </item>
-    <item>
-      <title>RAG Evaluation: Precision, Recall, MRR, nDCG, Faithfulness, Answer Relevance</title>
-      <link>https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=65</link>
-      <guid isPermaLink="true">https://ai-engineering-beginner.pages.dev/lesson.html?p=19&l=65</guid>
-      <pubDate>2026-06-11T00:00:00+00:00</pubDate>
-      <description>RAG Evaluation: Precision, Recall, MRR, nDCG, Faithfulness, Answer Relevance - Phase 19 Lesson 66</description>
-    </item>
+    <lastBuildDate>Fri, 19 Jun 2026 16:11:37 GMT</lastBuildDate>
+  <item>
+    <title>About / 소개 — AI Engineering from Scratch</title>
+    <link>https://ai-engineering-beginner.pages.dev//about.html</link>
+    <description>Learn about AI Engineering from Scratch — a 503-lesson bilingual curriculum teaching AI engineering from the math up.</description>
+    <guid>https://ai-engineering-beginner.pages.dev//about.html</guid>
+  </item>
+  <item>
+    <title>AI Engineering from Scratch / AI 엔지니어링 기초부터</title>
+    <link>https://ai-engineering-beginner.pages.dev//bilingual-index.html</link>
+    <description>AI Engineering from Scratch - 503 lessons, 20 phases. Bilingual English/Korean.</description>
+    <guid>https://ai-engineering-beginner.pages.dev//bilingual-index.html</guid>
+  </item>
+  <item>
+    <title>AI Engineering from Scratch / AI 엔지니어링 기초부터 | 503 Lessons, 20 Phases</title>
+    <link>https://ai-engineering-beginner.pages.dev//</link>
+    <description>Learn AI engineering from scratch with 503 hands-on lessons. Build every algorithm from the math up. Covers ML, Deep Learning, LLMs, Agents, CV, NLP. Bilingual English/Korean curriculum. 2026 updated.</description>
+    <guid>https://ai-engineering-beginner.pages.dev//</guid>
+  </item>
+  <item>
+    <title>lesson</title>
+    <link>https://ai-engineering-beginner.pages.dev//lesson.html</link>
+    <description>lesson</description>
+    <guid>https://ai-engineering-beginner.pages.dev//lesson.html</guid>
+  </item>
+  <item>
+    <title>Privacy Policy / 개인정보처리방침 — AI Engineering from Scratch</title>
+    <link>https://ai-engineering-beginner.pages.dev//privacy-policy.html</link>
+    <description>Privacy policy for AI Engineering from Scratch curriculum. Learn about how we collect, use, and protect your information.</description>
+    <guid>https://ai-engineering-beginner.pages.dev//privacy-policy.html</guid>
+  </item>
+  <item>
+    <title>About - AI Engineering from Scratch</title>
+    <link>https://ai-engineering-beginner.pages.dev//site/about.html</link>
+    <description>What AI Engineering from Scratch is, why it exists, who builds it, and how the site is made. A free, open-source, MIT-licensed curriculum.</description>
+    <guid>https://ai-engineering-beginner.pages.dev//site/about.html</guid>
+  </item>
+  <item>
+    <title>Lesson Catalog - AI Engineering from Scratch</title>
+    <link>https://ai-engineering-beginner.pages.dev//site/catalog.html</link>
+    <description>Full catalog of 503 AI engineering lessons. Search, filter, and sort every lesson across all 20 phases.</description>
+    <guid>https://ai-engineering-beginner.pages.dev//site/catalog.html</guid>
+  </item>
+  <item>
+    <title>AI Glossary - AI Engineering from Scratch</title>
+    <link>https://ai-engineering-beginner.pages.dev//site/glossary.html</link>
+    <description>AI glossary: what people say vs what things actually mean. Every term explained without hand-waving.</description>
+    <guid>https://ai-engineering-beginner.pages.dev//site/glossary.html</guid>
+  </item>
+  <item>
+    <title>AI Engineering from Scratch</title>
+    <link>https://ai-engineering-beginner.pages.dev//site/index.html</link>
+    <description>AI Engineering from Scratch is a free, open-source curriculum that builds every core AI algorithm by hand — 503 lessons, 20 phases, four languages. The math, the model, the tokenizer, and the agent loop. Once, by hand.</description>
+    <guid>https://ai-engineering-beginner.pages.dev//site/index.html</guid>
+  </item>
+  <item>
+    <title>Lesson - AI Engineering from Scratch</title>
+    <link>https://ai-engineering-beginner.pages.dev//site/lesson.html</link>
+    <description>A lesson from the AI Engineering from Scratch curriculum. 503 lessons across 20 phases, four languages, every algorithm built from raw math.</description>
+    <guid>https://ai-engineering-beginner.pages.dev//site/lesson.html</guid>
+  </item>
+  <item>
+    <title>Roadmap - AI Engineering from Scratch</title>
+    <link>https://ai-engineering-beginner.pages.dev//site/prereqs.html</link>
+    <description>Interactive prerequisite map for 503 AI engineering lessons. See which phases depend on which, and plan your learning path.</description>
+    <guid>https://ai-engineering-beginner.pages.dev//site/prereqs.html</guid>
+  </item>
+  <item>
+    <title>Terms of Service / 이용약관 — AI Engineering from Scratch</title>
+    <link>https://ai-engineering-beginner.pages.dev//terms-of-service.html</link>
+    <description>Terms of service for AI Engineering from Scratch curriculum. Read our terms before using this site.</description>
+    <guid>https://ai-engineering-beginner.pages.dev//terms-of-service.html</guid>
+  </item>
   </channel>
 </rss>
