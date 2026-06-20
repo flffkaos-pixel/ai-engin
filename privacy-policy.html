@@ -79,5 +79,7 @@ function setLang(lang){document.documentElement.setAttribute('data-lang',lang);d
 function toggleTheme(){var html=document.documentElement;var current=html.getAttribute('data-theme');var isDark=current==='dark';html.setAttribute('data-theme',isDark?'light':'dark');document.getElementById('themeBtn').textContent=isDark?'☀':'☾';localStorage.setItem('aieng_theme',isDark?'light':'dark')}
 var storedLang=localStorage.getItem('aieng_lang')||'en';var storedTheme=localStorage.getItem('aieng_theme')||'light';document.documentElement.setAttribute('data-lang',storedLang);document.documentElement.setAttribute('data-theme',storedTheme);document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.toggle('btn-active',b.getAttribute('data-lang')===storedLang)});document.getElementById('themeBtn').textContent=storedTheme==='dark'?'☀':'☾';
 </script>
+<link rel="stylesheet" href="https://freeutilities.pages.dev/crosslinks.css"><script src="https://freeutilities.pages.dev/crosslinks.js" defer></script>
 </body>
 </html>
+
