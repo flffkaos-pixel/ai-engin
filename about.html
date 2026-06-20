@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
@@ -116,6 +116,6 @@ function toggleTheme(){var html=document.documentElement;var current=html.getAtt
 var storedLang=localStorage.getItem('aieng_lang')||'en';var storedTheme=localStorage.getItem('aieng_theme')||'light';document.documentElement.setAttribute('data-lang',storedLang);document.documentElement.setAttribute('data-theme',storedTheme);document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.toggle('btn-active',b.getAttribute('data-lang')===storedLang)});document.getElementById('themeBtn').textContent=storedTheme==='dark'?'☀':'☾';
 </script>
 <link rel="stylesheet" href="https://freeutilities.pages.dev/crosslinks.css">
-<script src="https://freeutilities.pages.dev/crosslinks.js" defer>
+<script src="https://freeutilities.pages.dev/crosslinks.js" defer></script>
 </body>
 </html>
