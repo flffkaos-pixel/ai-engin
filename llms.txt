@@ -1,0 +1,9 @@
+# AI Engineering from Scratch / AI 엔지니어링 기초부터 | 503 Lessons, 20 Phases
+
+> Learn AI engineering from scratch with 503 hands-on lessons. Build every algorithm from the math up. Covers ML, Deep Learning, LLMs, Agents, CV, NLP. Bilingual English/Korean curriculum. 2026 updated.
+
+Canonical URL: https://ai-engineering-beginner.pages.dev
+Language: en
+
+## Pages
+- https://ai-engineering-beginner.pages.dev/ : AI Engineering from Scratch / AI 엔지니어링 기초부터 | 503 Lessons, 20 Phases
