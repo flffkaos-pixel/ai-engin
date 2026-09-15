@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAG 입문: 청킹부터 평가까지 5단계 — AI Engineering from Scratch</title>
+<meta name="description" content="검색 증강 생성(RAG)을 처음부터 구축하는 순서. 청킹, 임베딩, 검색, 생성, 평가까지 운영자가 직접 정리한 실전 가이드입니다.">
+<link rel="canonical" href="https://ai-engineering-beginner.pages.dev/guides/rag-starter.html">
+<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Noto Sans KR',system-ui,sans-serif;line-height:1.85;color:#1f2937;background:#fafaf5;padding:40px 20px}.wrap{max-width:760px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:40px 36px}h1{font-size:1.5rem;margin-bottom:8px}.sub{color:#6b7280;margin-bottom:24px}h2{font-size:1.15rem;margin:28px 0 10px}p,li{font-size:.96rem;margin-bottom:10px}ul,ol{padding-left:22px}pre{background:#f5f5f0;border:1px solid #e5e7eb;border-radius:8px;padding:16px;overflow-x:auto;margin:16px 0;font-size:.85rem}a{color:#3553ff}.back{display:inline-block;margin-top:28px}footer{margin-top:28px;padding-top:14px;border-top:1px solid #e5e7eb;font-size:.8rem;color:#6b7280;text-align:center}</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="../index.html">&#8592; 커리큘럼으로</a>
+<h1>RAG 입문: 청킹부터 평가까지 5단계</h1>
+<p class="sub">운영자 실전 정리 · 2026년 9월 업데이트 · 약 10분 분량</p>
+<p>RAG가 동작하지 않는 이유의 80%는 모델이 아니라 청킹과 검색에 있습니다. 저는 처음에 문서를 통째로 넣었다가 답변이 엉뚱해지는 실패를 겪었습니다. 아래 5단계를 순서대로 점검하세요.</p>
+<h2>1단계. 청킹: 500~1000자 + 10% 겹침부터</h2>
+<p>문장을 자르지 말고 문단 단위로 자르세요. 표·코드는 절대 중간에 자르지 마세요. 한국어 문서는 조사 때문에 토큰이 길어지므로 영어 기준보다 20% 짧게 잡는 것이 체감상 좋았습니다.</p>
+<h2>2단계. 임베딩: 같은 모델로 통일</h2>
+<p>인덱싱과 질의를 반드시 같은 임베딩 모델로 처리하세요. 모델을 바꾸면 전체를 다시 인덱싱해야 합니다. 한국어 혼합 문서라면 다국어 모델인지 먼저 확인하세요.</p>
+<h2>3단계. 검색: top-k=5부터 시작</h2>
+<pre>def retrieve(query_vec, index, k=5):
+    scored = [(cosine(query_vec, v), doc) for v, doc in index]
+    scored.sort(reverse=True)
+    return [doc for _, doc in scored[:k]]</pre>
+<p>k를 무작정 늘리면 노이즈가 답을 오염시킵니다. 3→5→10 순서로 늘리며 정답 포함률(hit rate)을 재보세요.</p>
+<h2>4단계. 생성: 인용 강제 프롬프트</h2>
+<p>"인용된 문서 번호와 함께 답하라"는 한 줄이 환각을 크게 줄입니다. 근거가 없으면 "모르겠습니다"라고 답하게 하세요. 업무용에서는 이 한 줄이 신뢰도를 결정합니다.</p>
+<h2>5단계. 평가: 20개 질문 세트 고정</h2>
+<p>질문 20개를 고정해두고 청킹·k·프롬프트를 바꿀 때마다 정답률을 기록하세요. 숫자가 없으면 튜닝이 아니라 감입니다. Phase 5-27 LLM 평가 레슨과 함께 보면 좋습니다.</p>
+<h2>자주 하는 실수 3가지</h2>
+<ul>
+<li>PDF 표를 텍스트로 바로 넣기 → 표는 마크다운으로 변환 후 청킹</li>
+<li>최신 정보인데 구버전 문서가 검색됨 → 문서에 날짜 메타데이터 추가</li>
+<li>답은 맞는데 출처가 틀림 → 생성 단계가 아니라 검색 단계 문제. k와 청킹을 먼저 의심</li>
+</ul>
+<p>다음: <a href="../lesson.html?p=5&l=22">Phase 5-23 Chunking Strategies</a> · <a href="prompt-engineering-guide.html">프롬프트 가이드</a></p>
+<footer>&copy; 2026 AI Engineering from Scratch · <a href="../index.html">Home</a> · <a href="index.html">가이드 목록</a></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>선형대수 로드맵: AI 엔지니어가 꼭 알아야 할 7개 개념 — AI Engineering from Scratch</title>
+<meta name="description" content="벡터, 행렬곱, 고유값, SVD까지. AI 엔지니어 관점에서 선형대수를 어떤 순서로 공부해야 하는지 정리한 운영자 직접 작성 가이드입니다.">
+<link rel="canonical" href="https://ai-engineering-beginner.pages.dev/guides/linear-algebra-roadmap.html">
+<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Noto Sans KR',system-ui,sans-serif;line-height:1.85;color:#1f2937;background:#fafaf5;padding:40px 20px}.wrap{max-width:760px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:40px 36px}h1{font-size:1.5rem;margin-bottom:8px}.sub{color:#6b7280;margin-bottom:24px}h2{font-size:1.15rem;margin:28px 0 10px}p,li{font-size:.96rem;margin-bottom:10px}ul,ol{padding-left:22px}pre{background:#f5f5f0;border:1px solid #e5e7eb;border-radius:8px;padding:16px;overflow-x:auto;margin:16px 0;font-size:.85rem}a{color:#3553ff}.back{display:inline-block;margin-top:28px}footer{margin-top:28px;padding-top:14px;border-top:1px solid #e5e7eb;font-size:.8rem;color:#6b7280;text-align:center}</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="../index.html">&#8592; 커리큘럼으로</a>
+<h1>선형대수 로드맵: AI 엔지니어가 꼭 알아야 할 7개 개념</h1>
+<p class="sub">운영자가 직접 정리한 학습 순서 가이드 · 2026년 9월 업데이트 · 약 8분 분량</p>
+<p>AI 강의를 보다가 "행렬 곱이 왜 여기서 나오지?"에서 막힌다면 정상입니다. 저도 처음에 역전파 수식에서 막혀 일주일을 헤맸습니다. 결론부터 말하면 선형대수는 7개 개념만 잡으면 이후 500개 레슨이 전부 읽힙니다.</p>
+<h2>1. 벡터와 놈(norm)</h2>
+<p>벡터는 방향과 크기를 가진 묶음입니다. AI에서는 임베딩, 그래디언트, 특성 벡터가 전부 벡터입니다. L2 놈은 "벡터의 길이"이고, 손실함수와 정규화에서 매일 등장합니다. 파이썬으로 직접 길이를 구해보는 것부터 시작하세요.</p>
+<pre>import math
+v = [3.0, 4.0]
+print(math.sqrt(sum(x*x for x in v)))  # 5.0</pre>
+<h2>2. 행렬곱 = 신경망 한 층</h2>
+<p>행렬 times 벡터는 신경망의 한 층(layer) 그 자체입니다. 가중치 행렬 W에 입력 x를 곱하고 편향 b를 더한 뒤 활성화함수를 씌우는 것이 전부입니다. 이 사실을 알면 PyTorch의 nn.Linear가 더 이상 블랙박스가 아닙니다.</p>
+<h2>3. 전치·역행렬·연립방정식</h2>
+<p>최소제곱법(선형회귀)은 사실상 연립방정식 풀이입니다. 역행렬이 존재하지 않는 경우(특이행렬)에 유사역행렬(pseudo-inverse)이 등장하는 이유를 이해하면 회귀 레슨이 쉬워집니다.</p>
+<h2>4. 고유값·고유벡터</h2>
+<p>PCA, 스펙트럼 클러스터링, 안정성 분석의 공통 언어입니다. "행렬이 특정 방향은 크기만 바꾼다"는 직관을 먼저 잡으세요. 2x2 행렬을 손으로 풀어보는 연습을 권합니다.</p>
+<h2>5. SVD(특이값 분해)</h2>
+<p>추천 시스템, 압축, 잠재 의미 분석의 핵심입니다. 어떤 행렬도 U·Σ·V^T로 쪼갤 수 있고, 작은 특이값을 버리면 근사 압축이 됩니다. Phase 1-11 레슨과 함께 보세요.</p>
+<h2>6. 텐서와 브로드캐스팅</h2>
+<p>배치·채널·시퀀스 차원이 붙으면 텐서입니다. NumPy/PyTorch 브로드캐스팅 규칙(뒤 차원부터 맞추기)을 모르면 shape 오류에서 하루가 갑니다. 오류 메시지를 읽는 연습이 곧 실력입니다.</p>
+<h2>7. 수치 안정성</h2>
+<p>소프트맥스 오버플로, 로그-합-익스프 trick, 그래디언트 폭주/소실이 전부 여기 속합니다. 이론보다 "NaN이 떴을 때 어디를 볼 것인가" 체크리스트가 실전에 도움됩니다.</p>
+<h2>추천 순서 (2주 플랜)</h2>
+<ol>
+<li>1~3일: 벡터·행렬곱·놈 — 코드로 직접 구현</li>
+<li>4~7일: 고유값·SVD — 손계산 1회 + PCA 실습</li>
+<li>8~14일: 텐서·브로드캐스팅·수치 안정성 — PyTorch로 같은 연산 반복</li>
+</ol>
+<p>다음 단계는 <a href="../lesson.html?p=1&l=0">Phase 1-01 Linear Algebra Intuition</a>과 <a href="pytorch-troubleshooting.html">PyTorch 오류 해결 가이드</a>입니다. 막히는 부분은 <a href="../contact.html">문의 페이지</a>로 알려주세요.</p>
+<footer>&copy; 2026 AI Engineering from Scratch · <a href="../index.html">Home</a> · <a href="index.html">가이드 목록</a></footer>
+</div>
+</body>
+</html>
