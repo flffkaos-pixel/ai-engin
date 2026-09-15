@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PyTorch 오류 해결: shape·NaN·CUDA 8개 체크리스트 — AI Engineering from Scratch</title>
+<meta name="description" content="RuntimeError shape mismatch, loss NaN, CUDA out of memory. 운영자가 직접 겪은 PyTorch 오류 8개와 해결 순서를 정리했습니다.">
+<link rel="canonical" href="https://ai-engineering-beginner.pages.dev/guides/pytorch-troubleshooting.html">
+<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Noto Sans KR',system-ui,sans-serif;line-height:1.85;color:#1f2937;background:#fafaf5;padding:40px 20px}.wrap{max-width:760px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:40px 36px}h1{font-size:1.5rem;margin-bottom:8px}.sub{color:#6b7280;margin-bottom:24px}h2{font-size:1.15rem;margin:28px 0 10px}p,li{font-size:.96rem;margin-bottom:10px}ul,ol{padding-left:22px}pre{background:#f5f5f0;border:1px solid #e5e7eb;border-radius:8px;padding:16px;overflow-x:auto;margin:16px 0;font-size:.85rem}a{color:#3553ff}.back{display:inline-block;margin-top:28px}footer{margin-top:28px;padding-top:14px;border-top:1px solid #e5e7eb;font-size:.8rem;color:#6b7280;text-align:center}</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="../index.html">&#8592; 커리큘럼으로</a>
+<h1>PyTorch 오류 해결: shape·NaN·CUDA 8개 체크리스트</h1>
+<p class="sub">운영자 실전 정리 · 2026년 9월 업데이트 · 약 8분 분량</p>
+<p>PyTorch 오류의 절반은 shape, 30%는 데이터, 나머지는 환경 문제였습니다. 오류가 나면 아래 순서대로 보세요.</p>
+<h2>shape 오류 3종</h2>
+<ol>
+<li><strong>mat1 and mat2 shapes cannot be multiplied:</strong> Linear의 in_features가 입력 마지막 차원과 다른 경우. <code>x.shape</code>와 <code>layer.weight.shape</code>를 나란히 출력하세요.</li>
+<li><strong>Expected all tensors on same device:</strong> 모델은 CUDA, 입력은 CPU인 경우. <code>.to(device)</code> 누락을 먼저 의심하세요.</li>
+<li><strong>Target size mismatch (CrossEntropy):</strong> 타깃이 (N,) 정수 텐서인지 확인. 원-핫으로 넣으면 틀립니다.</li>
+</ol>
+<pre>print("x:", x.shape, x.device)
+print("w:", layer.weight.shape)
+# x: torch.Size([32, 128]) / w: torch.Size([64, 128]) 이면 정상</pre>
+<h2>loss NaN 3단계</h2>
+<ol>
+<li>학습률을 1/10로 낮춰서 재현되는지 확인</li>
+<li>입력에 NaN/inf가 있는지 <code>torch.isnan(x).any()</code>로 검사</li>
+<li>소프트맥스+로그를 CrossEntropyLoss로 합쳤는지 확인 (따로 쓰면 오버플로)</li>
+</ol>
+<h2>CUDA 메모리 2가지</h2>
+<ul>
+<li><strong>out of memory:</strong> 배치 크기를 절반으로, 그 다음 그래디언트 누적(accumulation)으로 보완</li>
+<li><strong>느리지만 터지진 않음:</strong> DataLoader의 num_workers와 pin_memory를 점검</li>
+</ul>
+<p>다음: <a href="../lesson.html?p=3&l=0">Phase 3-01 The Perceptron</a> · <a href="linear-algebra-roadmap.html">선형대수 로드맵</a></p>
+<footer>&copy; 2026 AI Engineering from Scratch · <a href="../index.html">Home</a> · <a href="index.html">가이드 목록</a></footer>
+</div>
+</body>
+</html>
