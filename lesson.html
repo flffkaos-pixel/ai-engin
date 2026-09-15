@@ -543,6 +543,12 @@ function applyStoredSettings() {
   document.getElementById('themeBtn').textContent = storedTheme === 'dark' ? '\u2600' : '\u263D';
 }
 
+function cleanName(s, fb) {
+  if (!s) return fb;
+  if (/�|[\u00C0-\u0233]/.test(s)) return fb;
+  return s;
+}
+
 function renderLesson() {
   const lang = document.documentElement.getAttribute('data-lang') || 'en';
   const data = findLesson();
@@ -557,8 +563,8 @@ function renderLesson() {
   var le = data.lesson;
   var li = data.lessonIndex;
   var pi = data.phaseIndex;
-  var lname = le.name[lang] || le.name.en;
-  var pname = ph.name[lang] || ph.name.en;
+  var lname = cleanName(le.name[lang], le.name.en);
+  var pname = cleanName(ph.name[lang], ph.name.en);
   var typeClass = 'tag-' + le.type.toLowerCase();
   var hasPrev = li > 0 || pi > 0;
   var hasNext = li < ph.lessons.length - 1 || pi < PHASES.length - 1;
@@ -588,8 +594,8 @@ function renderLesson() {
   }
 
   container.innerHTML = 
-    '<div class="phase-badge">' + pname + ' / ' + ph.name.ko + ' \u2014 ' + 'P' + String(pi).padStart(2, '0') + '</div>' +
-    '<h1>' + lname + '<span class="ko">' + le.name.ko + '</span></h1>' +
+    '<div class="phase-badge">' + pname + ' / ' + cleanName(ph.name.ko, '') + ' \u2014 ' + 'P' + String(pi).padStart(2, '0') + '</div>' +
+    '<h1>' + lname + '<span class="ko">' + cleanName(le.name.ko, '') + '</span></h1>' +
     '<div class="meta-grid">' +
       '<div class="meta-item"><div class="meta-label" data-en="Type" data-ko="유형">Type</div><div class="meta-value"><span class="tag ' + typeClass + '">' + le.type + '</span></div></div>' +
       '<div class="meta-item"><div class="meta-label" data-en="Language" data-ko="언어">Language</div><div class="meta-value lang-tag">' + langText + '</div></div>' +
@@ -667,7 +673,7 @@ function renderLesson() {
           try {
             var enHtml = marked.parse(enMd);
             document.getElementById('lessonBody').className = 'lesson-content';
-            document.getElementById('lessonBody').innerHTML = enHtml;
+            document.getElementById('lessonBody').innerHTML = '<p style="border-left:3px solid var(--accent);padding-left:16px;color:var(--muted);margin-bottom:16px">한국어 번역 준비 중 — 영어 원문을 표시합니다.</p>' + enHtml;
             console.log('[Lesson] Content rendered from English fallback');
           } catch(e) {
             document.getElementById('lessonBody').className = 'content-error';

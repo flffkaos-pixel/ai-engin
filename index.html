@@ -529,6 +529,20 @@ h1 .ko { color: var(--muted); font-weight: 400; font-size: 1.1rem; display: bloc
   </div>
 
   <div class="toc-header">
+    <h2 data-en="Guides &#9474; 운영자 직접 작성" data-ko="가이드 &#9474; 운영자 직접 작성">Guides &#9474; 운영자 직접 작성</h2>
+    <a class="btn" href="guides/index.html">전체보기</a>
+  </div>
+
+  <section aria-label="학습 가이드">
+    <div class="phase open"><a class="phase-header" style="text-decoration:none;color:inherit" href="guides/linear-algebra-roadmap.html"><span class="phase-id">G01</span><span class="phase-name">선형대수 로드맵<span class="ko">꼭 알아야 할 7개 개념 · 2주 플랜</span></span><span class="phase-meta">가이드<span class="phase-toggle">&#8250;</span></span></a></div>
+    <div class="phase open"><a class="phase-header" style="text-decoration:none;color:inherit" href="guides/rag-starter.html"><span class="phase-id">G02</span><span class="phase-name">RAG 입문<span class="ko">청킹부터 평가까지 5단계</span></span><span class="phase-meta">가이드<span class="phase-toggle">&#8250;</span></span></a></div>
+    <div class="phase open"><a class="phase-header" style="text-decoration:none;color:inherit" href="guides/prompt-engineering-guide.html"><span class="phase-id">G03</span><span class="phase-name">프롬프트 엔지니어링 실전<span class="ko">6개 패턴과 실패 사례</span></span><span class="phase-meta">가이드<span class="phase-toggle">&#8250;</span></span></a></div>
+    <div class="phase open"><a class="phase-header" style="text-decoration:none;color:inherit" href="guides/agent-loop-guide.html"><span class="phase-id">G04</span><span class="phase-name">에이전트 루프 120줄 구현<span class="ko">ReAct 뼈대와 실패 패턴</span></span><span class="phase-meta">가이드<span class="phase-toggle">&#8250;</span></span></a></div>
+    <div class="phase open"><a class="phase-header" style="text-decoration:none;color:inherit" href="guides/pytorch-troubleshooting.html"><span class="phase-id">G05</span><span class="phase-name">PyTorch 오류 해결<span class="ko">shape·NaN·CUDA 체크리스트</span></span><span class="phase-meta">가이드<span class="phase-toggle">&#8250;</span></span></a></div>
+    <div class="phase open"><a class="phase-header" style="text-decoration:none;color:inherit" href="guides/study-plan.html"><span class="phase-id">G06</span><span class="phase-name">500시간 학습 계획<span class="ko">주 10시간·6개월 플랜</span></span><span class="phase-meta">가이드<span class="phase-toggle">&#8250;</span></span></a></div>
+  </section>
+
+  <div class="toc-header">
     <h2 data-en="Curriculum &#9474; 20 Phases" data-ko="커리큘럼 &#9474; 20개 단계"></h2>
   </div>
 
@@ -562,19 +576,6 @@ h1 .ko { color: var(--muted); font-weight: 400; font-size: 1.1rem; display: bloc
   </section>
   <div id="phases"></div>
 
-  <section aria-label="학습 가이드">
-    <h2>학습 가이드 (운영자 직접 작성)</h2>
-    <p>원문 커리큘럼과 별개로, 운영자가 한국어로 직접 쓴 실전 정리입니다.</p>
-    <ul>
-      <li><a href="guides/linear-algebra-roadmap.html">선형대수 로드맵: 꼭 알아야 할 7개 개념</a></li>
-      <li><a href="guides/rag-starter.html">RAG 입문: 청킹부터 평가까지 5단계</a></li>
-      <li><a href="guides/prompt-engineering-guide.html">프롬프트 엔지니어링 실전 6패턴</a></li>
-      <li><a href="guides/agent-loop-guide.html">에이전트 루프 120줄 구현</a></li>
-      <li><a href="guides/pytorch-troubleshooting.html">PyTorch 오류 해결 체크리스트 8개</a></li>
-      <li><a href="guides/study-plan.html">500시간 학습 계획</a></li>
-    </ul>
-  </section>
-
   <div class="colophon">
     <div data-en="Built from the math up. Every lesson ships a reusable artifact." data-ko="수학부터 직접 구축합니다. 모든 레슨은 재사용 가능한 결과물을 제공합니다."></div>
     <div class="footer-links">
@@ -591,6 +592,11 @@ h1 .ko { color: var(--muted); font-weight: 400; font-size: 1.1rem; display: bloc
 
 <script src="data.js"></script>
 <script>
+function cleanName(s, fb) {
+  if (!s) return fb;
+  if (/�|[\u00C0-\u0233]/.test(s)) return fb;
+  return s;
+}
 function render() {
   const lang = document.documentElement.getAttribute('data-lang') || 'en';
   const container = document.getElementById('phases');
@@ -598,20 +604,20 @@ function render() {
   PHASES.forEach(function(p) {
     const phaseDiv = document.createElement('div');
     phaseDiv.className = 'phase';
-    const name = p.name[lang] || p.name.en;
+    const name = cleanName(p.name[lang], p.name.en);
     const header = document.createElement('div');
     header.className = 'phase-header';
-    header.innerHTML = '<span class="phase-id">P' + String(p.id).padStart(2,'0') + '</span><span class="phase-name">' + name + '<span class="ko">' + p.name.ko + '</span></span><span class="phase-meta"><span class="status-dot status-' + p.status + '"></span>' + p.lessons.length + ' lessons<span class="phase-toggle">&#9654;</span></span>';
+    header.innerHTML = '<span class="phase-id">P' + String(p.id).padStart(2,'0') + '</span><span class="phase-name">' + name + '<span class="ko">' + cleanName(p.name.ko, '') + '</span></span><span class="phase-meta"><span class="status-dot status-' + p.status + '"></span>' + p.lessons.length + ' lessons<span class="phase-toggle">&#9654;</span></span>';
     header.addEventListener('click', function() { phaseDiv.classList.toggle('open'); });
     phaseDiv.appendChild(header);
     const list = document.createElement('div');
     list.className = 'phase-lessons';
     p.lessons.forEach(function(le) {
-      const lname = le.name[lang] || le.name.en;
+      const lname = cleanName(le.name[lang], le.name.en);
       const typeClass = 'tag-' + le.type.toLowerCase();
       const lessonDiv = document.createElement('div');
       lessonDiv.className = 'lesson';
-      lessonDiv.innerHTML = '<div class="lesson-name">' + lname + '<span class="ko">' + le.name.ko + '</span></div><div class="lesson-tags"><span class="tag ' + typeClass + '">' + le.type + '</span><span class="lang-tag">' + le.lang + '</span></div>';
+      lessonDiv.innerHTML = '<div class="lesson-name">' + lname + '<span class="ko">' + cleanName(le.name.ko, '') + '</span></div><div class="lesson-tags"><span class="tag ' + typeClass + '">' + le.type + '</span><span class="lang-tag">' + le.lang + '</span></div>';
       lessonDiv.style.cursor = 'pointer'; lessonDiv.addEventListener('click', function(e) { if (!e.target.closest('.lesson-tags')) { var lidx = Array.prototype.indexOf.call(list.children, lessonDiv); window.location.href = 'lesson.html?p=' + p.id + '&l=' + lidx; } });
       list.appendChild(lessonDiv);
     });
